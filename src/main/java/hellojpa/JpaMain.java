@@ -7,43 +7,33 @@ import javax.persistence.Persistence;
 
 public class JpaMain {
     public static void main(String[] args) {
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
-        EntityManager entityManager = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
 
-        EntityTransaction tx = entityManager.getTransaction();
+        EntityTransaction tx = em.getTransaction();
         // EntityManager는 데이터 변경시 트랜잭션을 시작해야 한다.
 
         tx.begin();  // [트랜잭션] 시작
 
-        try {
-            Member member1 = new Member();
-            member1.setUsername("A");
+        try{
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+            Order order = new Order();
+            em.persist(order);
+//            order.addOrderItem(new OrderItem());
 
-            Member member3 = new Member();
-            member3.setUsername("C");
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
 
-            System.out.println("================================");
-
-            entityManager.persist(member1);  //1, 51
-            entityManager.persist(member2);  //Memory 에서 호출
-            entityManager.persist(member3);  //Memory 에서 호출
-
-
-            System.out.println("member1.id = " + member1.getId());
-            System.out.println("member2.id = " + member2.getId());
-            System.out.println("member3.id = " + member3.getId());
-            System.out.println("================================");
+            em.persist(orderItem);
 
             tx.commit();
-            } catch (Exception e) {
-                tx.rollback();
-            }finally{
-                entityManager.close();
-            }
-                emf.close();
+        }catch(Exception e){
+            tx.rollback();
+        }finally {
+            em.close();
+        }
+        emf.close();
     }
 }
