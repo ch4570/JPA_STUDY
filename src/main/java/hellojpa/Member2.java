@@ -1,6 +1,6 @@
-package hellojpa;
+//package hellojpa;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 
 //@Entity
 //public class Member2 {

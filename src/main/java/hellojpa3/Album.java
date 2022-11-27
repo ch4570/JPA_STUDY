@@ -1,11 +1,11 @@
-//package hellojpa3;
-//
-//import javax.persistence.DiscriminatorColumn;
-//import javax.persistence.Entity;
-//
-//@Entity
-//@DiscriminatorColumn(name = "A")
-//public class Album extends Item{
-//
-//    private String artist;
-//}
+package hellojpa3;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorColumn(name = "A")
+public class Album extends Item{
+
+    private String artist;
+}

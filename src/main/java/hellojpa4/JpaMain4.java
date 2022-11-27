@@ -1,11 +1,11 @@
-package hellojpa3;
+package hellojpa4;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
-public class JpaMain3 {
+public class JpaMain4 {
     public static void main(String[] args) {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -19,23 +19,20 @@ public class JpaMain3 {
 
         try{
 
-            Movie movie = new Movie();
-            movie.setDirector("aaaa");
-            movie.setActor("bbbb");
-            movie.setName("바람과 함께 사라지다");
-            movie.setPrice(10000);
+            Address address = new Address("city", "street", "10000");
 
-            em.persist(movie);
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setHomeAddress(address);
+            em.persist(member1);
 
-            em.flush();
-            em.clear();
-
-            Item item = em.find(Item.class, movie.getId());
-            System.out.println("findMovie = " + item.toString());
+            Address newAddress = new Address("NewCity", address.getStreet(), address.getZipcode());
+            member1.setHomeAddress(newAddress);
 
             tx.commit();
         }catch(Exception e){
             tx.rollback();
+            e.printStackTrace();
         }finally {
             em.close();
         }

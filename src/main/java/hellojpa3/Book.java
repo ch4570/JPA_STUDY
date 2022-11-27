@@ -1,12 +1,12 @@
-//package hellojpa3;
-//
-//import javax.persistence.DiscriminatorColumn;
-//import javax.persistence.Entity;
-//
-//@Entity
-//@DiscriminatorColumn(name = "B")
-//public class Book extends Item{
-//
-//    private String author;
-//    private String isbn;
-//}
+package hellojpa3;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorColumn(name = "B")
+public class Book extends Item{
+
+    private String author;
+    private String isbn;
+}
