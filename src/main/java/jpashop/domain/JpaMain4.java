@@ -20,11 +20,7 @@ public class JpaMain4 {
 
         try{
 
-            Book book = new Book();
-            book.setName("JPA");
-            book.setIsbn("김영한");
 
-            em.persist(book);
 
             tx.commit();
         }catch(Exception e){
