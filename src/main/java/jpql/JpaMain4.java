@@ -21,25 +21,41 @@ public class JpaMain4 {
                 team.setName("TeamA");
                 em.persist(team);
 
-                Member member = new Member();
-                member.setUserName("TeamA");
-                member.setAge(10);
+                Member member1 = new Member();
+                member1.setUserName("관리자1");
+                member1.setMemberType(MemberType.USER);
+                member1.setAge(10);
 
-                member.setTeam(team);
+                Member member2 = new Member();
+                member2.setUserName("관리자2");
+                member2.setMemberType(MemberType.USER);
+                member2.setAge(10);
 
-                em.persist(member);
+
+                member2.setTeam(team);
+
+                em.persist(member1);
+                em.persist(member2);
 
 
 
             em.flush();
             em.clear();
 
-            List<Member> result =  em.createQuery("select m from Member m left join Team t on m.userName = t.name", Member.class)
-                    .getResultList();
+//            String query = "select " +
+//                                 "case when m.age <= 10 then '학생요금' "
+//                                +      "when m.age >= 60 then '경로요금' "
+//                                +      "else '일반요금'" +
+//                                        "end " +
+//                            "from Member m";
 
-            System.out.println("result.size = " + result.size());
-            for(Member member1  : result) {
-                System.out.println("member1 = " + member1);
+            String query = "select function('group_concat', m.userName) From Member m";
+
+            List<String> result = em.createQuery(query,String.class)
+                             .getResultList();
+
+            for(String s : result) {
+                System.out.println("s = " + s);
             }
 
             tx.commit();
